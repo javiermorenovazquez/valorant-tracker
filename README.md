@@ -2,7 +2,7 @@
 
 Aplicación web para **registrar partidas de Valorant y analizar tu rendimiento**, hecha con **HTML, CSS y JavaScript puro** (sin librerías ni frameworks).
 
-🔗 **Pruébala:** https://javiermorenovazquez270-droid.github.io/valorant-tracker/
+🔗 **Pruébala:** https://javiermorenovazquez.github.io/valorant-tracker/
 
 ## Funcionalidades
 - Formulario con validación para añadir partidas (mapa, agente, resultado, K/D/A, ACS y % de headshot).
@@ -18,6 +18,6 @@ Aplicación web para **registrar partidas de Valorant y analizar tu rendimiento*
 
 ## Autor
 **Javier Moreno Vázquez** · Estudiante de DAW
-[Portfolio](https://javiermorenovazquez270-droid.github.io/) · [LinkedIn](https://www.linkedin.com/in/javiermorenovazquez/)
+[Portfolio](https://javiermorenovazquez.github.io/) · [LinkedIn](https://www.linkedin.com/in/javiermorenovazquez/)
 
 > Proyecto de fan sin relación con Riot Games.
