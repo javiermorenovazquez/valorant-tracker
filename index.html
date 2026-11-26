@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valorant Tracker · Estadísticas de partidas</title>
+  <meta name="description" content="Aplicación web para registrar partidas de Valorant y analizar estadísticas: K/D, porcentaje de victorias, ACS y rendimiento por mapa y agente.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="container top-inner">
+      <div class="brand">
+        <span class="logo">VT</span>
+        <div>
+          <h1>Valorant Tracker</h1>
+          <p>Registra tus partidas y descubre dónde mejorar</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="btn ghost" id="btnDemo" type="button">Cargar demo</button>
+        <button class="btn ghost" id="btnExport" type="button">Exportar</button>
+        <label class="btn ghost" for="importFile">Importar</label>
+        <input type="file" id="importFile" accept="application/json" hidden>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Resumen -->
+    <section class="kpis" id="kpis" aria-label="Resumen de estadísticas"></section>
+
+    <div class="layout">
+      <!-- Formulario -->
+      <section class="panel" aria-labelledby="formTitle">
+        <h2 id="formTitle">Nueva partida</h2>
+        <form id="matchForm" novalidate>
+          <div class="row">
+            <label>Fecha<input type="date" name="date" required></label>
+            <label>Resultado
+              <select name="result" required>
+                <option value="win">Victoria</option>
+                <option value="loss">Derrota</option>
+                <option value="draw">Empate</option>
+              </select>
+            </label>
+          </div>
+          <div class="row">
+            <label>Mapa<select name="map" id="mapSelect" required></select></label>
+            <label>Agente<select name="agent" id="agentSelect" required></select></label>
+          </div>
+          <div class="row three">
+            <label>Kills<input type="number" name="kills" min="0" max="80" required></label>
+            <label>Deaths<input type="number" name="deaths" min="0" max="80" required></label>
+            <label>Assists<input type="number" name="assists" min="0" max="80" required></label>
+          </div>
+          <div class="row">
+            <label>ACS<input type="number" name="acs" min="0" max="600" required></label>
+            <label>% Headshot<input type="number" name="hs" min="0" max="100" required></label>
+          </div>
+          <p class="error" id="formError" role="alert"></p>
+          <button class="btn primary" type="submit">Guardar partida</button>
+        </form>
+      </section>
+
+      <!-- Gráficas -->
+      <section class="panel charts" aria-label="Gráficas">
+        <div class="chart-box">
+          <div class="chart-head">
+            <h2>Evolución del K/D</h2>
+            <span class="hint">Últimas 20 partidas</span>
+          </div>
+          <canvas id="kdChart" height="220" aria-label="Gráfica de evolución del K/D" role="img"></canvas>
+        </div>
+        <div class="chart-box">
+          <div class="chart-head">
+            <h2>% de victorias por mapa</h2>
+          </div>
+          <canvas id="mapChart" height="220" aria-label="Gráfica de victorias por mapa" role="img"></canvas>
+        </div>
+      </section>
+    </div>
+
+    <!-- Consejos -->
+    <section class="panel insights" aria-labelledby="insTitle">
+      <h2 id="insTitle">Análisis automático</h2>
+      <ul id="insights"></ul>
+    </section>
+
+    <!-- Historial -->
+    <section class="panel" aria-labelledby="histTitle">
+      <div class="table-head">
+        <h2 id="histTitle">Historial</h2>
+        <div class="filters">
+          <select id="filterMap" aria-label="Filtrar por mapa"><option value="">Todos los mapas</option></select>
+          <select id="filterAgent" aria-label="Filtrar por agente"><option value="">Todos los agentes</option></select>
+          <select id="filterResult" aria-label="Filtrar por resultado">
+            <option value="">Todos los resultados</option>
+            <option value="win">Victorias</option>
+            <option value="loss">Derrotas</option>
+            <option value="draw">Empates</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th data-sort="date">Fecha</th>
+              <th data-sort="map">Mapa</th>
+              <th data-sort="agent">Agente</th>
+              <th data-sort="result">Resultado</th>
+              <th data-sort="kda">K / D / A</th>
+              <th data-sort="kd">K/D</th>
+              <th data-sort="acs">ACS</th>
+              <th data-sort="hs">HS %</th>
+              <th><span class="sr">Acciones</span></th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+        <p class="empty" id="emptyMsg">Aún no hay partidas. Añade una o pulsa «Cargar demo».</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container foot">
+    Hecho por <a href="https://javiermorenovazquez270-droid.github.io/" target="_blank" rel="noopener">Javier Moreno Vázquez</a> con HTML, CSS y JavaScript ·
+    Proyecto de fan sin relación con Riot Games · Los datos se guardan solo en tu navegador.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
